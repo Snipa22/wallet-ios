@@ -87,7 +87,7 @@ extension TariNetwork {
             blockExplorerURL: nil,
             currencySymbol: "tXTM",
             minValidVersion: "1.6.0-pre.0",
-            version: "1.6.0"
+            version: "6.0.1-pre.2"
         )
     }
 
