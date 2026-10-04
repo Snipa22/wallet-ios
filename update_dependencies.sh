@@ -1,7 +1,11 @@
 #!/bin/bash
 
+# Network is selected via the first positional argument, e.g.:
+#   sh update_dependencies.sh mainnet
+#   sh update_dependencies.sh esme
+#   sh update_dependencies.sh            (defaults to nextnet)
 # Default network if not specified
-NETWORK=mainnet
+NETWORK=${1:-nextnet}
 
 FILE=env.json
 WORKING_DIR=Temp
@@ -22,6 +26,12 @@ source dependencies.env
 # Determine which FFI version to use based on the network
 if [ "$NETWORK" = "mainnet" ]; then
     FFI_VERSION=$FFI_MAINNET_VERSION
+elif [ "$NETWORK" = "esme" ]; then
+    FFI_VERSION=$FFI_ESME_VERSION
+    # Esme uses its own archive/xcframework-directory naming (verified against the real
+    # v6.0.1-pre.2 release asset), distinct from the mainnet-named defaults set above.
+    FRAMEWORK_ZIP_FILE_NAME=libminotari_wallet_ffi-esme_archive.zip
+    FRAMEWORK_DIRECTORY=libminotari_wallet_ffi-esme-ios-xcframework
 else
     FFI_VERSION=$FFI_NEXTNET_VERSION
 fi
